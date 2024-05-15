@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol Impact on Performance Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Performance Impact Calculator</h1>
+    <p>Use this tool to calculate and visualize the impact of alcohol consumption on performance based on the specified inputs.</p>
+    
+    <div class="formula">
+        <span class="equation">P = (</span>
+        <span class="fraction">
+            <span class="numerator">100 - A</span>
+            <span class="denominator">100</span>
+        </span>
+        <span class="equation">) × (</span>
+        <span class="fraction">
+            <span class="numerator">Bw</span>
+            <span class="denominator">Bw + U × C</span>
+        </span>
+        <span class="equation">) × Wd × e</span>
+        <sup>-k*t</sup>
+    </div>
+
+    <form id="inputForm">
+        <div>
+            <label for="dateTime">Date and Time of Entry:</label>
+            <input type="datetime-local" id="dateTime" name="dateTime" required>
+        </div>
+        <div>
+            <label for="age">Age (A):<br><small>The individual’s age in years, used to adjust the performance score baseline.</small></label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <div>
+            <label for="bodyWeight">Body Weight (Bw, in kg):<br><small>Body weight affects the dilution of alcohol in the body. Also shown in pounds (lbs) for reference.</small></label>
+            <input type="number" id="bodyWeight" name="bodyWeight" required oninput="updatePoundDisplay()">
+            <span id="weightInPounds">0 lbs</span>
+        </div>
+        <div>
+            <label for="units">Number of Units (U):<br><small>Standard units of alcohol consumed, affecting the impact of alcohol. (e.g. 1 Unit = ~14g (0.6oz) pure alcohol; Beer: a 12oz (355 ml) 5% ABV, Wine: 5oz (148 ml) 12% ABV, Spirits: 1.5oz (44 ml) shot 40% ABV (80 proof).</small></label>
+            <input type="number" id="units" name="units" required>
+        </div>
+        <div>
+            <label for="impactConstant">Impact Constant (C):<br><small>A physiological factor of alcohol's impact per unit body weight. (e.g. 1 = High Tolerance, 5 = Average, 10 = Low Tolerance)</small></label>
+            <input type="number" id="impactConstant" name="impactConstant" value="5" required>
+        </div>
+        <div>
+            <label for="decayConstant">Decay Constant (k, per hour):<br><small>Rate at which alcohol effects diminish over time, typically 1/24 per hour.</small></label>
+            <input type="number" id="decayConstant" name="decayConstant" value="0.041666" required>
+        </div>
+        <div>
+            <label for="timeSinceLastDrink">Time Since Last Drink (t, in hours):<br><small>Hours since last alcohol consumption, critical for calculating diminishing effects.</small></label>
+            <input type="number" id="timeSinceLastDrink" name="timeSinceLastDrink" required>
+        </div>
+        <div class="button-group">
+            <button type="button" onclick="calculateAndStorePerformance()">Calculate & Plot</button>
+            <button type="button" onclick="clearChart()">Clear Chart</button>
+            <button type="button" onclick="clearLocalStorage()">Clear All Data</button>
+        </div>
+    </form>
+
+    <div class="day-weights-container">
+        <table id="dayWeights">
+            <thead>
+                <tr><th>Day</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Weight</td>
+                    <td><input type="number" id="mondayWeight" value="-8"></td>
+                    <td><input type="number" id="tuesdayWeight" value="-10"></td>
+                    <td><input type="number" id="wednesdayWeight" value="-10"></td>
+                    <td><input type="number" id="thursdayWeight" value="-10"></td>
+                    <td><input type="number" id="fridayWeight" value="0"></td>
+                    <td><input type="number" id="saturdayWeight" value="-2"></td>
+                    <td><input type="number" id="sundayWeight" value="-12"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="day-weights-buttons">
+            <button type="button" onclick="saveDayWeights()">Save Weights</button>
+            <button type="button" onclick="resetDayWeights()">Default Weights</button>
+        </div>
+    </div>
+    
+    <div id="equationValues"></div>
+    <h2>Results:</h2>
+    <div id="results"></div>
+    <h3>Performance Chart:</h3>
+    <canvas id="performanceChart"></canvas>
+    
+    <section id="logSection">
+        <h3>Submission Log:</h3>
+        <div id="logContainer"></div>
+    </section>
+
+    <section id="instructions">
+        <h2>How to Use</h2>
+        <p>Each component of the equation is critical for accurate calculation of alcohol's impact on performance. Enter each parameter as accurately as possible and use the Calculate button to view results graphically over time. For further details on each parameter, refer to the labels provided with each input field.</p>
+    </section>
+
+    <h3>Optimal Beer Level (O.B.L.):</h3>
+    <canvas id="optimalBeerLevelChart"></canvas>
+    <button id="calculateOptimalBeerLevel">Calculate Optimal Beer Level</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

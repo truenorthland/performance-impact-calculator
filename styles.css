@@ -1,0 +1,180 @@
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Headings for clarity and emphasis */
+h1, h2, h3 {
+    color: #0056b3;
+}
+
+/* Styling for the performance equation display */
+.formula {
+    font-family: 'Courier New', monospace;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Styles for numerator and denominator in the equation to mimic fraction appearance */
+.fraction {
+    display: inline-block;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.numerator, .denominator {
+    padding: 0 5px;
+}
+
+.numerator {
+    border-bottom: 1px solid #333;
+    display: block;
+}
+
+/* Basic form styling for better layout and spacing */
+form div {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"], input[type="datetime-local"], select, button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Button styling for better user interaction */
+button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Styles for day weights table */
+.day-weights-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#dayWeights {
+    width: 70%;
+    border-collapse: collapse;
+}
+
+#dayWeights th, #dayWeights td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#dayWeights input[type="number"] {
+    width: 100%;
+    border: none;
+    text-align: center;
+}
+
+/* Styles for day weights buttons */
+.day-weights-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day-weights-buttons button {
+    width: 100%;
+}
+
+/* Result and chart container styles */
+#results, #performanceChart, #instructions {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#equationValues {
+    background-color: #e0f7fa;
+    margin: 20px 0;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Log section styling */
+#logSection {
+    margin-top: 20px;
+}
+
+#logContainer {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #fafafa;
+}
+
+/* Additional styling for real-time weight display in pounds */
+#weightInPounds {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Ensure responsiveness and accessibility */
+@media (max-width: 600px) {
+    input[type="number"], input[type="datetime-local"], select, button {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .day-weights-container {
+        flex-direction: column;
+    }
+
+    .day-weights-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #dayWeights {
+        width: 100%;
+    }
+}
